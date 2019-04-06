@@ -7,6 +7,7 @@ application
 3. To run and debug the application and make sure it’s as much error free as possible
 
 Details of assignment brief:
+
 We will work on a mobile application whose capability relies on obtaining data from an API.
 You will be given API links that will enable the login functionality for your application. All
 various API links should be provided to you during the lecture on the 26th of March. You will
