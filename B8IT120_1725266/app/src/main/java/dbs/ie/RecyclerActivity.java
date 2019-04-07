@@ -29,62 +29,62 @@ public class RecyclerActivity extends AppCompatActivity {
     public static RequestQueue queue ;
     public static Context applicationContext;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recycler);
-
-        applicationContext = getApplicationContext();
-
-        if(RecyclerActivity.queue == null) {
-            RecyclerActivity.queue = Volley.newRequestQueue(getApplicationContext());
-        }
-        String url = getResources().getString(R.string.api_url)+"/Module/GetModulesForUser";
-
-        final StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            Map apiResponse = RecyclerActivity.toMap(new JSONObject(response));
-                            if(apiResponse.get("status").toString().equals("success")){
-
-                                List<Object> modules = (ArrayList)apiResponse.get("modules");
-                                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-                                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-                                recyclerView.setLayoutManager(layoutManager);
-                                RecyclerView.Adapter mAdapter = new ModuleAdapter(modules);
-                                recyclerView.setAdapter(mAdapter);
-
-                            } else {
-                                Log.v("error", apiResponse.get("message").toString());
-                            }
-                        } catch (Exception e) {
-                            Log.v("Error:", e.getMessage());
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.v("Response is:",error.getMessage());
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("User_ID", "1");
-                params.put("ForApp", "true");
-                return params;
-            }
-        };
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                RecyclerActivity.queue.add(stringRequest);
-            }
-        }, 200);
-    }
+    //@Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_recycler);
+//
+//        applicationContext = getApplicationContext();
+//
+//        if(RecyclerActivity.queue == null) {
+//            RecyclerActivity.queue = Volley.newRequestQueue(getApplicationContext());
+//        }
+//        String url = getResources().getString(R.string.api_url)+"/Module/GetModulesForUser";
+//
+//        final StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        try {
+//                            Map apiResponse = RecyclerActivity.toMap(new JSONObject(response));
+//                            if(apiResponse.get("status").toString().equals("success")){
+//
+//                                List<Object> modules = (ArrayList)apiResponse.get("modules");
+//                                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+//                                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+//                                recyclerView.setLayoutManager(layoutManager);
+//                                RecyclerView.Adapter mAdapter = new ModuleAdapter(modules);
+//                                recyclerView.setAdapter(mAdapter);
+//
+//                            } else {
+//                                Log.v("error", apiResponse.get("message").toString());
+//                            }
+//                        } catch (Exception e) {
+//                            Log.v("Error:", e.getMessage());
+//                        }
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.v("Response is:",error.getMessage());
+//            }
+//        }) {
+//            @Override
+//            protected Map<String, String> getParams() {
+//                Map<String, String> params = new HashMap<String, String>();
+//                params.put("User_ID", "1");
+//                params.put("ForApp", "true");
+//                return params;
+//            }
+//        };
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                RecyclerActivity.queue.add(stringRequest);
+//            }
+//        }, 200);
+//    }
 
     public static Map<String, Object> toMap(JSONObject object) throws JSONException {
         Map<String, Object> map = new HashMap<String, Object>();
