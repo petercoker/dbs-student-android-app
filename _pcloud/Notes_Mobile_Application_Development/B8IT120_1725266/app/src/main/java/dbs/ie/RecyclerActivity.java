@@ -50,7 +50,7 @@ public class RecyclerActivity extends AppCompatActivity {
                             if(apiResponse.get("status").toString().equals("success")){
 
                                 List<Object> modules = (ArrayList)apiResponse.get("modules");
-                                RecyclerView recyclerView = (RecyclerView)findViewById(R.id.my_recycler_view);
+                                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
                                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
                                 recyclerView.setLayoutManager(layoutManager);
                                 RecyclerView.Adapter mAdapter = new ModuleAdapter(modules);

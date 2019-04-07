@@ -26,3 +26,4 @@ public interface UserDAO {
     void removeAllUsers();
 
 }
+
