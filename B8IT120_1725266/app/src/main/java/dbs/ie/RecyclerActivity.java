@@ -31,6 +31,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+//AppCompatActivity it shows the top
 public class RecyclerActivity extends AppCompatActivity {
     public static RequestQueue queue;
     public static Context applicationContext;
@@ -110,6 +111,19 @@ public class RecyclerActivity extends AppCompatActivity {
         inflater.inflate(R.menu.recycler, menu);
         return true;
     }
+
+
+    //        findViewById(R.id.logut).setOnClickListener(new View.OnClickListener() { //create logout in layout in the resoucres file
+//            @Override
+//            public void onClick(View v) {
+//                database = AppDatabase.getDatabase(getApplicationContext());
+//                database.userDAO().removeAllUsers();
+//
+//                Intent intent = new Intent(RecyclerActivity.this, Splash.class);
+//                RecyclerActivity.this.startActivity(intent);
+//            }
+//        });
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){

@@ -18,11 +18,22 @@ public abstract class AppDatabase extends RoomDatabase {
                     .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
                     .build();
+
+            //remove .allowMainThreadQueries() with single thread
         }
 
         return INSTANCE;
     }
 
+//    thread = new Thread(new Runnable) {
+//        @Override
+//                public void () {
+//            "Do your db operations here"} toString()});
+//
+//        }
+//        }
+//
+//    }
     public static void destoryInstance(){
         INSTANCE = null;
     }

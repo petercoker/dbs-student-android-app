@@ -7,14 +7,13 @@
         app:showAsAction="always"
         android:icon="@drawable/refresh"
         android:title="Refresh"/>
-
+    <item
+        android:id="@+id/action_logout"
+        android:title="Log out" />
 
     <item
         android:id="@+id/action_settings"
         android:title="Settings"
         />
-
-    <item
-        android:id="@+id/action_logout"
-        android:title="Log out" />
 </menu>
+

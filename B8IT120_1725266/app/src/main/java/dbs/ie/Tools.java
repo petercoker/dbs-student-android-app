@@ -12,7 +12,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+
+
 public class Tools {
+
+    //Add static of Database here  and call it from this call and use for
+
+
     public static Map<String, Object> toMap(JSONObject object) throws JSONException {
         Map<String, Object> map = new HashMap<String, Object>();
         Iterator<String> keysItr = object.keys();
