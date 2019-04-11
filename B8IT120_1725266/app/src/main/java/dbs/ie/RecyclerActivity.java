@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 
 import com.android.volley.Request;
@@ -98,6 +100,13 @@ public class RecyclerActivity extends AppCompatActivity {
 //                RecyclerActivity.this.startActivity(intent);
 //            }
 //        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.recycler, menu);
+        return true;
     }
 
     public static Map<String, Object> toMap(JSONObject object) throws JSONException {
