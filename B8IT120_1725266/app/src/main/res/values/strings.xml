@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">API Connections</string>
+    <string name="app_name">DBS</string>
 
     <string name="api_url">http://178.62.246.236</string>
 </resources>
