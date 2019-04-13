@@ -112,8 +112,6 @@ public class RecyclerActivity extends AppCompatActivity {
                 break;
 
             case R.id.action_logout:
-                //region
-
                 database = AppDatabase.getDatabase(getApplicationContext());
                 final int SPLASH_DISPLAY_LENGTH = 1000;
 
@@ -131,42 +129,7 @@ public class RecyclerActivity extends AppCompatActivity {
 
                 }
 
-//                database = AppDatabase.getDatabase(getApplicationContext());
-//                database.userDAO().removeAllUsers();
-//
-//                Intent intent = new Intent(RecyclerActivity.this, LoginActivity.class);
-//                RecyclerActivity.this.startActivity(intent);
-
                 Toast.makeText(getApplicationContext(),"User Logged out",Toast.LENGTH_SHORT).show();
-//                applicationContext = getApplicationContext();
-//
-//                if (RecyclerActivity.queue == null) {
-//                    RecyclerActivity.queue = Volley.newRequestQueue(getApplicationContext());
-//                }
-//
-//                String url = getResources().getString(R.string.api_url) + "/User/Logout";
-//
-//                final StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-//                        new Response.Listener<String>() {
-//                            @Override
-//                            public void onResponse(String response) {
-//                                try {
-//                                    Map apiResponse = Tools.toMap(new JSONObject(response));
-//                                    if (apiResponse.get("status").toString().equals("success")) {
-//                                    }
-//
-//                                    database = AppDatabase.getDatabase(getApplicationContext());
-//                                    database.userDAO().removeAllUsers();
-//
-//                                    Intent intent = new Intent(RecyclerActivity.this, LoginActivity.class);
-//                                    RecyclerActivity.this.startActivity(intent);
-//                                }
-//
-//
-//                            }
-//                        });
-
-                //endregion
             break;
             case R.id.action_settings:
                 Toast.makeText(this, "Settings options", Toast.LENGTH_SHORT).show();
