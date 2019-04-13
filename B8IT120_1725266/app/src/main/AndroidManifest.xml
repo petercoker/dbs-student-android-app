@@ -12,16 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".LogoutActivity"></activity>
-        <activity android:name=".AddUser" />
         <activity android:name=".RecyclerActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".UserList">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
