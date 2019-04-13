@@ -1,6 +1,9 @@
 package dbs.ie;
 
+import android.content.Intent;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,6 +20,20 @@ import java.util.Map;
 public class Tools {
 
     //Add static of Database here  and call it from this call and use for
+
+    public static AppDatabase database;
+    String id;
+    String name;
+    String email;
+    String username;
+    String password;
+    String userType;
+    String avatar;
+    String createDate;
+    String lastLogin;
+    String active;
+
+
 
 
     public static Map<String, Object> toMap(JSONObject object) throws JSONException {
@@ -52,4 +69,6 @@ public class Tools {
         }
         return  list;
     }
+
+
 }

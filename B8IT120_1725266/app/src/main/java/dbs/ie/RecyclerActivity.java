@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -33,9 +34,11 @@ import java.util.Map;
 
 //AppCompatActivity it shows the top
 public class RecyclerActivity extends AppCompatActivity {
+
     public static RequestQueue queue;
     public static Context applicationContext;
     private AppDatabase database;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +57,7 @@ public class RecyclerActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            Map apiResponse = RecyclerActivity.toMap(new JSONObject(response));
+                            Map apiResponse = Tools.toMap(new JSONObject(response));
                             if(apiResponse.get("status").toString().equals("success")){
 
                                 List<Object> modules = (ArrayList)apiResponse.get("modules");
@@ -92,17 +95,6 @@ public class RecyclerActivity extends AppCompatActivity {
                 RecyclerActivity.queue.add(stringRequest);
             }
         }, 200);
-
-//        findViewById(R.id.logut).setOnClickListener(new View.OnClickListener() { //create logout in layout in the resoucres file
-//            @Override
-//            public void onClick(View v) {
-//                database = AppDatabase.getDatabase(getApplicationContext());
-//                database.userDAO().removeAllUsers();
-//
-//                Intent intent = new Intent(RecyclerActivity.this, Splash.class);
-//                RecyclerActivity.this.startActivity(intent);
-//            }
-//        });
     }
 
     @Override
@@ -112,68 +104,76 @@ public class RecyclerActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()) {
+            case R.id.action_refresh:
+                Toast.makeText(this, "Module page refreshed", Toast.LENGTH_SHORT).show();
+                break;
 
-    //        findViewById(R.id.logut).setOnClickListener(new View.OnClickListener() { //create logout in layout in the resoucres file
-//            @Override
-//            public void onClick(View v) {
+            case R.id.action_logout:
+                //region
+
+                database = AppDatabase.getDatabase(getApplicationContext());
+                final int SPLASH_DISPLAY_LENGTH = 1000;
+
+                if(!(database.userDAO().getAllUsers().isEmpty())){
+                    database.userDAO().removeAllUsers();
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent mainIntent = new Intent(RecyclerActivity.this,LoginActivity.class);
+                            RecyclerActivity.this.startActivity(mainIntent);
+                            RecyclerActivity.this.finish();
+                        }
+                    }, SPLASH_DISPLAY_LENGTH);
+
+                }
+
 //                database = AppDatabase.getDatabase(getApplicationContext());
 //                database.userDAO().removeAllUsers();
 //
-//                Intent intent = new Intent(RecyclerActivity.this, Splash.class);
+//                Intent intent = new Intent(RecyclerActivity.this, LoginActivity.class);
 //                RecyclerActivity.this.startActivity(intent);
-//            }
-//        });
 
+                Toast.makeText(getApplicationContext(),"User Logged out",Toast.LENGTH_SHORT).show();
+//                applicationContext = getApplicationContext();
+//
+//                if (RecyclerActivity.queue == null) {
+//                    RecyclerActivity.queue = Volley.newRequestQueue(getApplicationContext());
+//                }
+//
+//                String url = getResources().getString(R.string.api_url) + "/User/Logout";
+//
+//                final StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+//                        new Response.Listener<String>() {
+//                            @Override
+//                            public void onResponse(String response) {
+//                                try {
+//                                    Map apiResponse = Tools.toMap(new JSONObject(response));
+//                                    if (apiResponse.get("status").toString().equals("success")) {
+//                                    }
+//
+//                                    database = AppDatabase.getDatabase(getApplicationContext());
+//                                    database.userDAO().removeAllUsers();
+//
+//                                    Intent intent = new Intent(RecyclerActivity.this, LoginActivity.class);
+//                                    RecyclerActivity.this.startActivity(intent);
+//                                }
+//
+//
+//                            }
+//                        });
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()){
-            case R.id.action_refresh:
-                Toast.makeText(this, "Modeule page refreshed", Toast.LENGTH_SHORT).show();
-                break;
+                //endregion
+            break;
             case R.id.action_settings:
                 Toast.makeText(this, "Settings options", Toast.LENGTH_SHORT).show();
                 break;
-             default:
-                 break;
-
+            default:
+                break;
         }
-
         return true;
     }
-
-    public static Map<String, Object> toMap(JSONObject object) throws JSONException {
-        Map<String, Object> map = new HashMap<String, Object>();
-        Iterator<String> keysItr = object.keys();
-        while(keysItr.hasNext()) {
-            String key = keysItr.next();
-            Object value = object.get(key);
-            if(value instanceof JSONArray) {
-                value = toList((JSONArray) value);
-            } else if(value instanceof JSONObject) {
-                value = toMap((JSONObject) value);
-            }
-            map.put(key, value);
-        }
-        return map;
-    }
-
-    public static List<Object> toList(JSONArray array){
-        List<Object> list = new ArrayList<Object>();
-        try{
-            for(int i = 0; i < array.length(); i++) {
-                Object value = array.get(i);
-                if(value instanceof JSONArray) {
-                    value = toList((JSONArray) value);
-                } else if(value instanceof JSONObject) {
-                    value = RecyclerActivity.toMap((JSONObject) value);
-                }
-                list.add(value);
-            }
-        } catch (Exception ex){
-            Log.e("Exception",ex.getMessage());
-        }
-        return  list;
-    }
 }
-
