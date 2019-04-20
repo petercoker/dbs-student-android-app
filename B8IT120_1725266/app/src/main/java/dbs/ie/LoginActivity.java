@@ -9,6 +9,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.content.BroadcastReceiver;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -29,6 +33,7 @@ import java.util.Map;
 
 public class LoginActivity extends Activity {
 
+    private BroadcastReceiver MyReceiver = null;
     public static RequestQueue queue ;
     public EditText email;
     public EditText password;
@@ -38,6 +43,15 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        MyReceiver = new InternetConnector_Receiver();
+        TextView click=findViewById(R.id.submit);
+        click.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                broadcastIntent();
+            }
+        });
 
         email = (EditText)findViewById(R.id.email);
         password = (EditText)findViewById(R.id.password);
@@ -121,6 +135,15 @@ public class LoginActivity extends Activity {
         });
     }
 
+    public void broadcastIntent() {
+        registerReceiver(MyReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(MyReceiver);
+    }
 
 
 }

@@ -5,14 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
-//public class InternetConnector_Receiver extends BroadcastReceiver {
-//    @Override
-//    public void onReceive(Context context, Intent intent) {
-//        String status = Tools.getConnectivityStatusString(context);
-//        if(status.isEmpty()) {
-//            status="No Internet Connection";
-//        }
-//
-//        Toast.makeText(context, status, Toast.LENGTH_LONG).show();
-//    }
-//}
+public class InternetConnector_Receiver extends BroadcastReceiver {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        String status = Tools.getConnectivityStatusString(context);
+        if(status.isEmpty()) {
+            status="No Internet Connection";
+        }
+
+        Toast.makeText(context, status, Toast.LENGTH_LONG).show();
+    }
+}
