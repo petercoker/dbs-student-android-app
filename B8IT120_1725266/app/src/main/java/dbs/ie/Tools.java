@@ -1,7 +1,9 @@
 package dbs.ie;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
@@ -20,30 +22,49 @@ import java.util.Map;
 
 
 
-public class Tools {
+public class Tools extends Application {
 
-    //Add static of Database here  and call it from this call and use for
+    ////Add static of Database here  and call it from this call and use for
 
-    public static AppDatabase database;
-    String id;
-    String name;
-    String email;
-    String username;
-    String password;
-    String userType;
-    String avatar;
-    String createDate;
-    String lastLogin;
-    String active;
+//    public static AppDatabase database;
+//    String id;
+//    String name;
+//    String email;
+//    String username;
+//    String password;
+//    String userType;
+//    String avatar;
+//    String createDate;
+//    String lastLogin;
+//    String active;
+
+//    public InternetConnector_Receiver internetConnector_receiver = new InternetConnector_Receiver();
+//
+//    @Override
+//    public void onCreate(){
+//        super.onCreate();
+//        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+//
+//
+//        registerReceiver(internetConnector_receiver, filter);
+//    }
+//
+//    @Override
+//    public void onTerminate(){
+//        super.onTerminate();
+//        unregisterReceiver(internetConnector_receiver);
+//    }
+
 
 
     public static String getConnectivityStatusString(Context context) {
         String status = null;
-        ConnectivityManager cm = (ConnectivityManager)           context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         if (activeNetwork != null) {
             if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
                 status = "Wifi enabled";
+
                 return status;
             } else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
                 status = "Mobile data enabled";

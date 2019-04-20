@@ -33,28 +33,36 @@ import java.util.Map;
 
 public class LoginActivity extends Activity {
 
-    private BroadcastReceiver MyReceiver = null;
+    private BroadcastReceiver MyReceiver;
+    public InternetConnector_Receiver internetConnector_receiver = new InternetConnector_Receiver();
     public static RequestQueue queue ;
     public EditText email;
     public EditText password;
     public AppDatabase database;
+    private TextView networkStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        networkStatus = (TextView) findViewById(R.id.activityLogin_status);
         MyReceiver = new InternetConnector_Receiver();
-        TextView click=findViewById(R.id.submit);
-        click.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                broadcastIntent();
-            }
-        });
+        broadcastIntent();
 
+//
+//        TextView click=findViewById(R.id.activityLogin_status);
+//        click.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                broadcastIntent();
+//            }
+//        });
+
+        //region
         email = (EditText)findViewById(R.id.email);
         password = (EditText)findViewById(R.id.password);
+
 
         findViewById(R.id.submit).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,7 +141,11 @@ public class LoginActivity extends Activity {
 
             }
         });
+
+        //endregion
     }
+
+
 
     public void broadcastIntent() {
         registerReceiver(MyReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
@@ -142,7 +154,7 @@ public class LoginActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        unregisterReceiver(MyReceiver);
+        unregisterReceiver(internetConnector_receiver);
     }
 
 

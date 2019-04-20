@@ -1,7 +1,10 @@
 package dbs.ie;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -38,6 +42,8 @@ public class RecyclerActivity extends AppCompatActivity {
     public static RequestQueue queue;
     public static Context applicationContext;
     private AppDatabase database;
+    private BroadcastReceiver MyReceiver = null;
+    public Tools tools = new Tools();
 
 
     @Override
@@ -108,7 +114,8 @@ public class RecyclerActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()) {
             case R.id.action_refresh:
-                Toast.makeText(this, "Module page refreshed", Toast.LENGTH_SHORT).show();
+                tools.onCreate();
+                //Toast.makeText(this, "Module page refreshed", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.action_logout:
@@ -139,4 +146,6 @@ public class RecyclerActivity extends AppCompatActivity {
         }
         return true;
     }
+
+
 }
