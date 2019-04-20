@@ -45,6 +45,7 @@ public class LoginActivity extends Activity {
         findViewById(R.id.submit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if(LoginActivity.queue == null) {
                     LoginActivity.queue = Volley.newRequestQueue(getApplicationContext());
                 }
