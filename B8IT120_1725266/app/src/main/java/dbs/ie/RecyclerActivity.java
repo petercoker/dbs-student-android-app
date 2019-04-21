@@ -114,8 +114,7 @@ public class RecyclerActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()) {
             case R.id.action_refresh:
-                tools.onCreate();
-                //Toast.makeText(this, "Module page refreshed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Module page refreshed", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.action_logout:
