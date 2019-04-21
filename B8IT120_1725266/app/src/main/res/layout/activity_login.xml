@@ -7,56 +7,71 @@
     android:background="@color/colorPrimary"
     tools:context=".LoginActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="30dp"
-        android:orientation="vertical"
-        android:background="@color/white"
-        app:layout_constraintTop_toTopOf="parent" >
+    <ImageView
 
-        <TextView
-            android:text="Welcome"
-            android:textSize="22sp"
-            android:gravity="center"
-            android:textColor="@android:color/black"
-            android:id="@+id/activityLogin_status"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="44dp" />
+        android:id="@+id/logo"
+        android:layout_width="382dp"
+        android:layout_height="219dp"
+        android:layout_marginBottom="476dp"
+
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.448"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <LinearLayout
+        android:layout_width="379dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="240dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+
+        <!--<TextView-->
+        <!--android:text="DBS - excellence through learning"-->
+        <!--android:textSize=_"22sp"-->
+        <!--android:gravity="center"-->
+        <!--android:textColor="@android:color/black"-->
+        <!--android:id="@+id/activityLogin_status"-->
+        <!--android:layout_marginLeft="15dp"-->
+        <!--android:layout_marginRight="15dp"-->
+        <!--android:layout_marginTop="15dp"-->
+        <!--android:layout_marginBottom="10dp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="44dp" />-->
 
         <EditText
             android:id="@+id/email"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
             android:layout_height="44dp"
-            />
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp" />
+
         <EditText
             android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
             android:inputType="textPassword" />
+
         <Button
             android:id="@+id/submit"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="15dp"
             android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:text="Login"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
             android:background="@color/colorAccent"
-            android:textColor="@color/white"/>
+            android:text="Login"
+            android:textColor="@color/white" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

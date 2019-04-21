@@ -1,5 +1,6 @@
 package dbs.ie;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
@@ -7,6 +8,8 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.arch.persistence.room.Dao;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -14,17 +17,14 @@ public class Splash extends AppCompatActivity {
 
     private final int SPLASH_DISPLAY_LENGTH = 1000;
     public AppDatabase database;
+    private BroadcastReceiver MyReceiver;
     public InternetConnector_Receiver internetConnector_receiver = new InternetConnector_Receiver();
-    public Tools tools = new Tools();
+    private ImageView networkStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
-
-
-
 
         database = AppDatabase.getDatabase(getApplicationContext());
 
@@ -54,6 +54,16 @@ public class Splash extends AppCompatActivity {
 
 
     }
+
+//    public void broadcastIntent() {
+//        registerReceiver(MyReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+//    }
+//
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        unregisterReceiver(internetConnector_receiver);
+//    }
 
 
 }

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.content.BroadcastReceiver;
 import android.content.IntentFilter;
@@ -39,25 +40,17 @@ public class LoginActivity extends Activity {
     public EditText email;
     public EditText password;
     public AppDatabase database;
-    private TextView networkStatus;
+    private ImageView networkStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        networkStatus = (TextView) findViewById(R.id.activityLogin_status);
+        networkStatus = (ImageView) findViewById(R.id.logo);
         MyReceiver = new InternetConnector_Receiver();
         broadcastIntent();
 
-//
-//        TextView click=findViewById(R.id.activityLogin_status);
-//        click.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                broadcastIntent();
-//            }
-//        });
 
         //region
         email = (EditText)findViewById(R.id.email);
