@@ -42,8 +42,7 @@ public class RecyclerActivity extends AppCompatActivity {
     public static RequestQueue queue;
     public static Context applicationContext;
     private AppDatabase database;
-    private BroadcastReceiver MyReceiver = null;
-    public Tools tools = new Tools();
+    //public Tools tools = new Tools();
 
 
     @Override

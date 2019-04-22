@@ -17,9 +17,6 @@ public class Splash extends AppCompatActivity {
 
     private final int SPLASH_DISPLAY_LENGTH = 1000;
     public AppDatabase database;
-    private BroadcastReceiver MyReceiver;
-    public InternetConnector_Receiver internetConnector_receiver = new InternetConnector_Receiver();
-    private ImageView networkStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -34,7 +34,7 @@ import java.util.Map;
 
 public class LoginActivity extends Activity {
 
-    private BroadcastReceiver MyReceiver;
+    private BroadcastReceiver appReceiver;
     public InternetConnector_Receiver internetConnector_receiver = new InternetConnector_Receiver();
     public static RequestQueue queue ;
     public EditText email;
@@ -47,8 +47,8 @@ public class LoginActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        networkStatus = (ImageView) findViewById(R.id.logo);
-        MyReceiver = new InternetConnector_Receiver();
+        //networkStatus = (ImageView) findViewById(R.id.logo);
+        appReceiver = new InternetConnector_Receiver();
         broadcastIntent();
 
 
@@ -141,7 +141,7 @@ public class LoginActivity extends Activity {
 
 
     public void broadcastIntent() {
-        registerReceiver(MyReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        registerReceiver(appReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
     @Override
