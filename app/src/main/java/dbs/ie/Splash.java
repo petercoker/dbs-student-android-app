@@ -1,17 +1,9 @@
 package dbs.ie;
 
-import android.content.BroadcastReceiver;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.arch.persistence.room.Dao;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import java.util.List;
 
 public class Splash extends AppCompatActivity {
 
@@ -42,7 +34,7 @@ public class Splash extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Intent mainIntent = new Intent(Splash.this,RecyclerActivity.class);
+                    Intent mainIntent = new Intent(Splash.this, ModuleActivity.class);
                     Splash.this.startActivity(mainIntent);
                     Splash.this.finish();
                 }

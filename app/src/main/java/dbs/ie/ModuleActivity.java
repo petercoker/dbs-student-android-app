@@ -23,18 +23,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class RecyclerActivity extends AppCompatActivity implements ModuleAdapter.ItemClickListener {
+public class ModuleActivity extends AppCompatActivity implements ModuleAdapter.ItemClickListener {
 
 
     InternetConnector_Receiver internetConnectorReceiver = new InternetConnector_Receiver();
@@ -62,8 +59,8 @@ public class RecyclerActivity extends AppCompatActivity implements ModuleAdapter
 
         applicationContext = getApplicationContext();
 
-        if (RecyclerActivity.queue == null) {
-            RecyclerActivity.queue = Volley.newRequestQueue(getApplicationContext());
+        if (ModuleActivity.queue == null) {
+            ModuleActivity.queue = Volley.newRequestQueue(getApplicationContext());
         }
         String url = getResources().getString(R.string.api_url) + "/Module/GetModulesForUser";
 
@@ -111,7 +108,7 @@ public class RecyclerActivity extends AppCompatActivity implements ModuleAdapter
                                 recyclerView.setLayoutManager(layoutManager);
                                 ModuleAdapter mAdapter = new ModuleAdapter(modules);
                                 recyclerView.setAdapter(mAdapter);
-                                ((ModuleAdapter) mAdapter).setmItemClickListener(RecyclerActivity.this);
+                                ((ModuleAdapter) mAdapter).setmItemClickListener(ModuleActivity.this);
 
 
                             } else {
@@ -143,7 +140,7 @@ public class RecyclerActivity extends AppCompatActivity implements ModuleAdapter
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                RecyclerActivity.queue.add(stringRequest);
+                ModuleActivity.queue.add(stringRequest);
             }
         }, 200);
     }
@@ -172,9 +169,9 @@ public class RecyclerActivity extends AppCompatActivity implements ModuleAdapter
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            Intent mainIntent = new Intent(RecyclerActivity.this,LoginActivity.class);
-                            RecyclerActivity.this.startActivity(mainIntent);
-                            RecyclerActivity.this.finish();
+                            Intent mainIntent = new Intent(ModuleActivity.this,LoginActivity.class);
+                            ModuleActivity.this.startActivity(mainIntent);
+                            ModuleActivity.this.finish();
                         }
                     }, SPLASH_DISPLAY_LENGTH);
 
@@ -193,7 +190,7 @@ public class RecyclerActivity extends AppCompatActivity implements ModuleAdapter
     @Override
     public void onListClick(int position) {
 
-        Intent intent = new Intent(RecyclerActivity.this, ContentActivity.class);
+        Intent intent = new Intent(ModuleActivity.this, ContentActivity.class);
         startActivity(intent);
 
     }

@@ -3,17 +3,11 @@ package dbs.ie;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
-import android.content.BroadcastReceiver;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
-import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,14 +16,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 public class LoginActivity extends Activity {
@@ -87,7 +76,7 @@ public class LoginActivity extends Activity {
                                         User user = new User(Integer.parseInt(id), name, email_1, username, password_1, userType, avatar, createDate, lastLogin, Integer.parseInt(active));
                                         database.userDAO().addUser(user);
 
-                                        Intent intent = new Intent(LoginActivity.this, RecyclerActivity.class);
+                                        Intent intent = new Intent(LoginActivity.this, ModuleActivity.class);
                                         startActivity(intent);
                                         finish();
 
