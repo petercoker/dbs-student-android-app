@@ -76,9 +76,9 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(ViewHolder viewHolder,  final int position) {
 
-        Module module = modules.get(i);
+        Module module = modules.get(position);
 
         viewHolder.module_name.setText(module.Module_Code + "-" + module.Module_Name);
         viewHolder.course_name.setText(module.Course + "-" + module.Course_Intake);
@@ -86,9 +86,23 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ViewHolder
         viewHolder.start.setText(module.Start);
         viewHolder.end.setText(module.End);
 
-
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+        try {
+            URL url = new URL(ModuleActivity.applicationContext.getResources().getString(R.string.api_url)
+                    + module.Lecturer);
+            Bitmap avatar = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+            viewHolder.avatar.setImageBitmap(avatar);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+
 
     }
 

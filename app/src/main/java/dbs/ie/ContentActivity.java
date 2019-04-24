@@ -8,6 +8,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -95,5 +99,48 @@ public class ContentActivity extends AppCompatActivity {
             }
         },200);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.recycler, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()) {
+            case R.id.action_refresh:
+                Toast.makeText(this, "Content page refreshed", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.action_logout:
+                database = AppDatabase.getDatabase(getApplicationContext());
+                final int SPLASH_DISPLAY_LENGTH = 1000;
+
+                if(!(database.userDAO().getAllUsers().isEmpty())){
+                    database.userDAO().removeAllUsers();
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent mainIntent = new Intent(ContentActivity.this,LoginActivity.class);
+                            ContentActivity.this.startActivity(mainIntent);
+                            ContentActivity.this.finish();
+                        }
+                    }, SPLASH_DISPLAY_LENGTH);
+
+                }
+
+                Toast.makeText(getApplicationContext(),"Logged out",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.action_settings:
+                Toast.makeText(this, "Settings options", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 }

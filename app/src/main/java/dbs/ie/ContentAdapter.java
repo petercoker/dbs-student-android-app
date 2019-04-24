@@ -51,12 +51,8 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.Viewhold
         final Map module = (HashMap) modules.get(i);
         viewholder.topic_name.setText(module.get("Topic_Name").toString());
         viewholder.topic_description.setText(module.get("TopicDescription").toString());
-        viewholder.subtopic_name.setText(module.get("Topic_Name").toString());
-        viewholder.subtopic_description.setText(module.get("TopicDescription").toString());
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
-
     }
 
     @Override
