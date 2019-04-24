@@ -1,6 +1,7 @@
 package dbs.ie;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,29 +24,32 @@ import java.util.List;
 import java.util.Map;
 
 public class ContentActivity extends AppCompatActivity {
-
     public static RequestQueue queue;
-    public static Context applicationContext;
     private AppDatabase database;
+    Module module;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content);
+        Intent intent = getIntent();
+        final List<Object> modules;
+        final Map subtopic = new HashMap();
+        database = AppDatabase.getDatabase(getApplicationContext());
+        module = database.moduleDAO().getModule();
 
 
-        applicationContext = getApplicationContext();
-
-        if(ContentActivity.queue == null) {
+        if (ContentActivity.queue == null) {
             ContentActivity.queue = Volley.newRequestQueue(getApplicationContext());
         }
-        String url = getResources().getString(R.string.api_url)+"/Module/GetModuleContent";
+
+        String url = getResources().getString(R.string.api_url) + "/Module/GetModuleContent";
 
         final StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        try {
+                        try{
                             Map apiResponse = Tools.toMap(new JSONObject(response));
                             if(apiResponse.get("status").toString().equals("success")){
                                 List<Object> modules = (ArrayList)apiResponse.get("topics");
@@ -58,30 +62,38 @@ public class ContentActivity extends AppCompatActivity {
                             } else {
                                 Log.v("error", apiResponse.get("message").toString());
                             }
-                        } catch (Exception e) {
-                            Log.v("Error:", e.getMessage());
+
                         }
+                        catch(Exception e){
+                            Log.v("Error", e.getMessage());
+                        }
+
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.v("Response is:",error.getMessage());
+                Log.v("Error", error.getMessage());
             }
         }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("User_ID", "1");
+                params.put("Module_ID", Integer.toString(module.Module_ID));
                 params.put("ForApp", "true");
                 return params;
             }
         };
+
+
+
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 ContentActivity.queue.add(stringRequest);
             }
-        }, 200);
+        },200);
+
     }
 }
