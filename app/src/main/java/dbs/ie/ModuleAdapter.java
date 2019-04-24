@@ -15,30 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-//public class ViewHolder extends RecyclerView.ViewHolder {
-//    public TextView module_name;
-//    public TextView course_name;
-//    public TextView lecturer;
-//    public TextView start;
-//    public TextView end;
-//    public View layout;
-//    public ImageView avatar;
-//
-//    ItemClickListener itemClickListener;
-//
-//    public ViewHolder(View v) {
-//        super(v);
-//        layout = v;
-//        module_name = (TextView) v.findViewById(R.id.module_name);
-//        course_name = (TextView) v.findViewById(R.id.course_name);
-//        lecturer = (TextView) v.findViewById(R.id.lecturer);
-//        start = (TextView) v.findViewById(R.id.start);
-//        end = (TextView) v.findViewById(R.id.end);
-//        avatar = (ImageView) v.findViewById(R.id.avatar);
-
-
-
 public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ViewHolder> {
 
     private List<Module> modules;
@@ -101,7 +77,6 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-
 
         Module module = modules.get(i);
 

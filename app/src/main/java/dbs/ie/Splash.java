@@ -49,18 +49,6 @@ public class Splash extends AppCompatActivity {
             }, SPLASH_DISPLAY_LENGTH);
         }
 
-
     }
-
-//    public void broadcastIntent() {
-//        registerReceiver(MyReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-//    }
-//
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        unregisterReceiver(internetConnector_receiver);
-//    }
-
 
 }

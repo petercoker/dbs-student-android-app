@@ -34,8 +34,6 @@ import java.util.Map;
 
 public class LoginActivity extends Activity {
 
-    //    private BroadcastReceiver appReceiver;
-//    public InternetConnector_Receiver internetConnector_receiver = new InternetConnector_Receiver();
     public static RequestQueue queue ;
     public EditText email;
     public EditText password;
