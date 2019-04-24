@@ -34,23 +34,18 @@ import java.util.Map;
 
 public class LoginActivity extends Activity {
 
-    private BroadcastReceiver appReceiver;
-    public InternetConnector_Receiver internetConnector_receiver = new InternetConnector_Receiver();
+    //    private BroadcastReceiver appReceiver;
+//    public InternetConnector_Receiver internetConnector_receiver = new InternetConnector_Receiver();
     public static RequestQueue queue ;
     public EditText email;
     public EditText password;
     public AppDatabase database;
-    private ImageView networkStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        //networkStatus = (ImageView) findViewById(R.id.logo);
-        appReceiver = new InternetConnector_Receiver();
-        broadcastIntent();
-
 
         //region
         email = (EditText)findViewById(R.id.email);
@@ -95,7 +90,8 @@ public class LoginActivity extends Activity {
                                         database.userDAO().addUser(user);
 
                                         Intent intent = new Intent(LoginActivity.this, RecyclerActivity.class);
-                                        LoginActivity.this.startActivity(intent);
+                                        startActivity(intent);
+                                        finish();
 
 
 
@@ -137,18 +133,5 @@ public class LoginActivity extends Activity {
 
         //endregion
     }
-
-
-
-    public void broadcastIntent() {
-        registerReceiver(appReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        unregisterReceiver(internetConnector_receiver);
-    }
-
 
 }

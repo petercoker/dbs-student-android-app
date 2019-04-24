@@ -48,13 +48,12 @@ public class ContentActivity extends AppCompatActivity {
                         try {
                             Map apiResponse = Tools.toMap(new JSONObject(response));
                             if(apiResponse.get("status").toString().equals("success")){
-
-//                                List<Object> modules = (ArrayList)apiResponse.get("modules");
-//                                ContentActivity recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-//                                ContentActivity.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-//                                ContentActivity.setLayoutManager(layoutManager);
-//                                ContentActivity.Adapter mAdapter = new ContentAdapter(module_contents);
-//                                ContentActivity.setAdapter(mAdapter);
+                                List<Object> modules = (ArrayList)apiResponse.get("topics");
+                                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.module_content);
+                                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+                                recyclerView.setLayoutManager(layoutManager);
+                                RecyclerView.Adapter mAdapter = new ContentAdapter(modules);
+                                recyclerView.setAdapter(mAdapter);
 
                             } else {
                                 Log.v("error", apiResponse.get("message").toString());

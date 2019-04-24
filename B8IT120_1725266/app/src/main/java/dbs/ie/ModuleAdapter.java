@@ -15,9 +15,38 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+//public class ViewHolder extends RecyclerView.ViewHolder {
+//    public TextView module_name;
+//    public TextView course_name;
+//    public TextView lecturer;
+//    public TextView start;
+//    public TextView end;
+//    public View layout;
+//    public ImageView avatar;
+//
+//    ItemClickListener itemClickListener;
+//
+//    public ViewHolder(View v) {
+//        super(v);
+//        layout = v;
+//        module_name = (TextView) v.findViewById(R.id.module_name);
+//        course_name = (TextView) v.findViewById(R.id.course_name);
+//        lecturer = (TextView) v.findViewById(R.id.lecturer);
+//        start = (TextView) v.findViewById(R.id.start);
+//        end = (TextView) v.findViewById(R.id.end);
+//        avatar = (ImageView) v.findViewById(R.id.avatar);
+
+
+
 public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ViewHolder> {
-    private List<Object> modules;
-    public class ViewHolder extends RecyclerView.ViewHolder {
+
+    private List<Module> modules;
+    private ItemClickListener mItemClickListener;
+
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
         public TextView module_name;
         public TextView course_name;
         public TextView lecturer;
@@ -25,6 +54,8 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ViewHolder
         public TextView end;
         public View layout;
         public ImageView avatar;
+        ItemClickListener itemClickListener;
+
         public ViewHolder(View v) {
             super(v);
             layout = v;
@@ -34,43 +65,70 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ViewHolder
             start = (TextView) v.findViewById(R.id.start);
             end = (TextView) v.findViewById(R.id.end);
             avatar = (ImageView) v.findViewById(R.id.avatar);
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mItemClickListener != null) {
+                        int position = getAdapterPosition();
+                        if(position!= RecyclerView.NO_POSITION ){
+                            mItemClickListener.onListClick(position);
+                        }
+                    }
+                }
+            });
+        }
+
+        @Override
+        public void onClick(View v) {
+
         }
     }
 
+
+    public ModuleAdapter(List<Module> dataset) {
+        modules = dataset;
+
+
+    }
+
     @Override
-    public ModuleAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View moduleView = inflater.inflate(R.layout.module, parent, false);
+    public ModuleAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+        View moduleView = inflater.inflate(R.layout.module, viewGroup, false);
         ViewHolder module = new ViewHolder(moduleView);
         return module;
     }
 
-    public ModuleAdapter(List<Object> dataset) {
-        modules = dataset;
-    }
-
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
-        final Map module = (HashMap) modules.get(position);
-        holder.module_name.setText(module.get("Module_Code") + " - " + module.get("Module_Name"));
-        holder.course_name.setText(module.get("Course") + " - " + module.get("Course_Intake"));
-        holder.lecturer.setText(module.get("Lecturer").toString());
-        holder.start.setText(module.get("From").toString());
-        holder.end.setText(module.get("To").toString());
+    public void onBindViewHolder(ViewHolder viewHolder, int i) {
+
+
+        Module module = modules.get(i);
+
+        viewHolder.module_name.setText(module.Module_Code + "-" + module.Module_Name);
+        viewHolder.course_name.setText(module.Course + "-" + module.Course_Intake);
+        viewHolder.lecturer.setText(module.Lecturer);
+        viewHolder.start.setText(module.Start);
+        viewHolder.end.setText(module.End);
+
+
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        try {
-            URL url = new URL(RecyclerActivity.applicationContext.getResources().getString(R.string.api_url)
-                    +module.get("Lecturer_Avatar").toString());
-            Bitmap avatar = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-            holder.avatar.setImageBitmap(avatar);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
     }
+
+    public interface ItemClickListener {
+        void onListClick(int position);
+    }
+
 
     @Override
     public int getItemCount() {
         return modules.size();
+    }
+
+    public void setmItemClickListener(ItemClickListener listener) {
+
+        mItemClickListener = listener;
     }
 }

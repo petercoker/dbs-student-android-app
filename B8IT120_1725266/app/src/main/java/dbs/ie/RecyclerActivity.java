@@ -1,6 +1,5 @@
 package dbs.ie;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -14,8 +13,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,17 +29,22 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-//AppCompatActivity it shows the top
-public class RecyclerActivity extends AppCompatActivity {
+public class RecyclerActivity extends AppCompatActivity implements ModuleAdapter.ItemClickListener {
 
-    public static RequestQueue queue;
+
+    InternetConnector_Receiver internetConnectorReceiver = new InternetConnector_Receiver();
+    private String userId;
+    TextView name;
     public static Context applicationContext;
+    public static RequestQueue queue;
     private AppDatabase database;
-    //public Tools tools = new Tools();
+    User user;
+
 
 
     @Override
@@ -50,48 +52,92 @@ public class RecyclerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler);
 
+        name = (TextView)findViewById(R.id.name);
+        Intent intent = getIntent();
+
+
+        database = AppDatabase.getDatabase((getApplicationContext()));
+        user = database.userDAO().getUser();
+        name.setText(user.FullName.toString());
+
         applicationContext = getApplicationContext();
 
-        if(RecyclerActivity.queue == null) {
+        if (RecyclerActivity.queue == null) {
             RecyclerActivity.queue = Volley.newRequestQueue(getApplicationContext());
         }
-        String url = getResources().getString(R.string.api_url)+"/Module/GetModulesForUser";
+        String url = getResources().getString(R.string.api_url) + "/Module/GetModulesForUser";
 
         final StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            Map apiResponse = Tools.toMap(new JSONObject(response));
-                            if(apiResponse.get("status").toString().equals("success")){
 
-                                List<Object> modules = (ArrayList)apiResponse.get("modules");
+
+                            Map responseApi = Tools.toMap(new JSONObject(response));
+                            if (responseApi.get("status").toString().equals("success")) {
+                                List<HashMap> moduleList = (ArrayList)responseApi.get("modules");
+
+
+                                database = AppDatabase.getDatabase(getApplicationContext());
+
+                                for(int i = 0; i < moduleList.size(); i++) {
+                                    Map module = moduleList.get(i);
+
+                                    String moduleId = module.get("Module_ID").toString();
+                                    String moduleCode = module.get("Module_Code").toString();
+                                    String moduleName = module.get("Module_Name").toString();
+                                    String course = module.get("Course").toString();
+                                    String courseIntake = module.get("Course_Intake").toString();
+                                    String lecturer = module.get("Lecturer").toString();
+                                    String startDate = module.get("StartDate").toString();
+                                    String endDate = module.get("EndDate").toString();
+                                    String start = module.get("From").toString();
+                                    String end = module.get("To").toString();
+
+                                    Module moduleItem = new Module(Integer.parseInt(moduleId),moduleCode, moduleName,
+                                            course, courseIntake, lecturer, startDate, endDate, start, end);
+
+
+                                    database.moduleDAO().addModule(moduleItem);
+
+
+                                }
+
+                                List<Module> modules = (ArrayList) database.moduleDAO().getAllModules();
+
                                 RecyclerView recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
                                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
                                 recyclerView.setLayoutManager(layoutManager);
-                                RecyclerView.Adapter mAdapter = new ModuleAdapter(modules);
+                                ModuleAdapter mAdapter = new ModuleAdapter(modules);
                                 recyclerView.setAdapter(mAdapter);
+                                ((ModuleAdapter) mAdapter).setmItemClickListener(RecyclerActivity.this);
+
 
                             } else {
-                                Log.v("error", apiResponse.get("message").toString());
+                                Log.v("error", responseApi.get("modules").toString());
                             }
+
                         } catch (Exception e) {
-                            Log.v("Error:", e.getMessage());
+                            Log.v("error", e.getMessage());
+
                         }
                     }
+
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.v("Response is:",error.getMessage());
+                Log.v("Response", error.getMessage());
             }
         }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("User_ID", "1");
+                params.put("User_ID", Integer.toString(user.User_ID));
                 params.put("ForApp", "true");
                 return params;
             }
+
         };
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -135,7 +181,7 @@ public class RecyclerActivity extends AppCompatActivity {
                 }
 
                 Toast.makeText(getApplicationContext(),"User Logged out",Toast.LENGTH_SHORT).show();
-            break;
+                break;
             case R.id.action_settings:
                 Toast.makeText(this, "Settings options", Toast.LENGTH_SHORT).show();
                 break;
@@ -144,6 +190,26 @@ public class RecyclerActivity extends AppCompatActivity {
         }
         return true;
     }
+    @Override
+    public void onListClick(int position) {
 
+        Intent intent = new Intent(RecyclerActivity.this, ContentActivity.class);
+        startActivity(intent);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(internetConnectorReceiver, filter);
+
+    }
+
+    protected void onStop() {
+        super.onStop();
+    }
 
 }
+

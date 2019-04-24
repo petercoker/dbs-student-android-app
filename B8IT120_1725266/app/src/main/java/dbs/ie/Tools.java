@@ -24,7 +24,6 @@ import java.util.Map;
 
 public class Tools extends Application {
 
-    ////Add static of Database here  and call it from this call and use for
 
     public static String getConnectivityStatusString(Context context) {
         String status = null;
