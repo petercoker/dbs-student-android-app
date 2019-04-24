@@ -30,7 +30,7 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ViewHolder
         public TextView end;
         public View layout;
         public ImageView avatar;
-        ItemClickListener itemClickListener;
+        //ItemClickListener itemClickListener;
 
         public ViewHolder(View v) {
             super(v);
