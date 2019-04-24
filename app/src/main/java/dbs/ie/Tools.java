@@ -24,7 +24,6 @@ import java.util.Map;
 
 public class Tools extends Application {
 
-
     public static String getConnectivityStatusString(Context context) {
         String status = null;
         ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -44,7 +43,6 @@ public class Tools extends Application {
         }
         return status;
     }
-
 
 
     public static Map<String, Object> toMap(JSONObject object) throws JSONException {

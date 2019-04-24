@@ -47,7 +47,7 @@ public class ModuleActivity extends AppCompatActivity implements ModuleAdapter.I
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recycler);
+        setContentView(R.layout.activity_module);
 
         name = (TextView)findViewById(R.id.name);
         Intent intent = getIntent();
@@ -177,7 +177,7 @@ public class ModuleActivity extends AppCompatActivity implements ModuleAdapter.I
 
                 }
 
-                Toast.makeText(getApplicationContext(),"User Logged out",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Logged out",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.action_settings:
                 Toast.makeText(this, "Settings options", Toast.LENGTH_SHORT).show();
