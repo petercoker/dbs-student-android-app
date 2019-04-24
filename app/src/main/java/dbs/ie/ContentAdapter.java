@@ -18,8 +18,6 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.Viewhold
     public class Viewholder extends RecyclerView.ViewHolder {
         public TextView topic_name;
         public TextView topic_description;
-        public TextView subtopic_name;
-        public TextView subtopic_description;
         public View layout;
 
 
@@ -28,8 +26,6 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.Viewhold
             layout = v;
             topic_name = (TextView) v.findViewById(R.id.topic_name);
             topic_description = (TextView) v.findViewById(R.id.topic_description_name);
-            subtopic_name = (TextView) v.findViewById(R.id.subtopic_topic_name);
-            subtopic_description = (TextView) v.findViewById(R.id.subtopic_topic_description_name);
         }
     }
 

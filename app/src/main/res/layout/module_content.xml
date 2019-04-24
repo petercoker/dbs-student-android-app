@@ -18,42 +18,18 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/topic_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/colorPrimary"
             android:textSize="18dp"
             android:fontFamily="sans-serif-black"
-            android:id="@+id/topic_name"/>
+            android:textColor="@color/colorPrimary"/>
+
         <TextView
+            android:id="@+id/topic_description_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:textSize="16dp"
-            android:fontFamily="sans-serif-light"
-            android:id="@+id/topic_description_name"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14dp"
-                android:fontFamily="sans-serif-black"
-                android:id="@+id/subtopic_topic_name"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:textSize="12dp"
-                android:fontFamily="sans-serif-light"
-                android:id="@+id/subtopic_topic_description_name"/>
-        </LinearLayout>
-
+            android:fontFamily="sans-serif-black"/>
     </LinearLayout>
 </android.support.v7.widget.CardView>
